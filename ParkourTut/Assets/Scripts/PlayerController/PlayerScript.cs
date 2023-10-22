@@ -7,6 +7,8 @@ public class PlayerScript : MonoBehaviour
   [Header("Player Movement")]
   public float movementSpeed = 4f;
   public MainCameraController MCC;
+  public float rotSpeed = 600f;
+  Quaternion requiredRotation;
 
   private void Update()
   {
@@ -24,8 +26,8 @@ public class PlayerScript : MonoBehaviour
     if (movementAmount > 0)
     {
       transform.position += movementDirection * movementSpeed * Time.deltaTime;
-      transform.rotation = Quaternion.LookRotation(movementDirection);
+      requiredRotation = Quaternion.LookRotation(movementDirection);
     }
-    
+    transform.rotation = Quaternion.RotateTowards(transform.rotation, requiredRotation, rotSpeed * Time.deltaTime);
   }
 }
