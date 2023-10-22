@@ -15,8 +15,15 @@ public class PlayerScript : MonoBehaviour
   {
    float horizontal = Input.GetAxis("Horizontal");
    float vertical = Input.GetAxis("Vertical");
+
+   float movementAmount = Mathf.Abs(horizontal) + Mathf.Abs(vertical);
     var movementInput = (new Vector3(horizontal, 0, vertical)).normalized;
 
-    transform.position += movementInput * movementSpeed * Time.deltaTime;
+    if (movementAmount > 0)
+    {
+      transform.position += movementInput * movementSpeed * Time.deltaTime;
+      transform.rotation = Quaternion.LookRotation(movementInput);
+    }
+    
   }
 }
